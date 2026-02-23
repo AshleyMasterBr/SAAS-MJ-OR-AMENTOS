@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamento Online | MJ Utilidades</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- TEMA PREMIUM GOLD --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #0a0a0a; color: #f0f0f0; line-height: 1.6; }
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        :root {
+            --primary: #C5A059; /* Dourado MJ */
+            --primary-dark: #a68545;
+            --bg-dark: #0a0a0a; 
+            --bg-card: #161616; 
+            --text-light: #ffffff;
+            --accent: #25D366; 
+        }
+
+        header { background: #000; padding: 15px 0; border-bottom: 2px solid var(--primary); position: fixed; width: 100%; top: 0; z-index: 1000; }
+        header .flex { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { 
+            display: flex; align-items: center; gap: 12px;
+            font-size: 1.2rem; font-weight: 900; color: var(--text-light); letter-spacing: 1px; text-transform: uppercase; 
+        }
+        .logo img { max-height: 50px; width: auto; display: block; }
+        .logo span { color: var(--primary); }
+
+        .btn-zap-header { 
+            background: var(--primary); color: #000; padding: 8px 20px; border-radius: 4px; 
+            text-decoration: none; font-weight: 700; font-size: 0.9rem; 
+            display: flex; align-items: center; gap: 6px; transition: 0.3s;
+        }
+        .btn-zap-header:hover { background: #fff; transform: scale(1.05); }
+
+        .hero { 
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0.95)), url('https://images.unsplash.com/photo-1581850518616-0819c3a242c7?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover; background-position: center; 
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: white;
+            padding: 120px 0 60px 0;
+        }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; text-transform: uppercase; line-height: 1.1; color: var(--primary); }
+        .hero p { font-size: 1.1rem; margin-bottom: 35px; color: #aaa; }
+
+        .calculator-box {
+            background: var(--bg-card); color: var(--text-light);
+            padding: 35px; border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            max-width: 500px; margin: 0 auto;
+            text-align: left;
+            border: 1px solid #222;
+        }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.85rem; color: var(--primary); text-transform: uppercase; }
+        .form-group input, .form-group select { 
+            width: 100%; padding: 14px; border: 1px solid #333; border-radius: 6px; 
+            font-size: 1rem; outline: none; transition: 0.3s; 
+            background: #222; color: #fff; 
+        }
+        .form-group input:focus { border-color: var(--primary); }
+        
+        .btn-calc { 
+            width: 100%; background: var(--primary); color: #000; 
+            border: none; padding: 18px; font-size: 1.1rem; font-weight: 900; text-transform: uppercase; 
+            border-radius: 6px; cursor: pointer; transition: 0.3s; margin-top: 10px;
+            letter-spacing: 1px;
+        }
+        .btn-calc:hover { background: #fff; }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); z-index: 2000;
+            display: none; justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--bg-card); padding: 40px; border-radius: 12px;
+            max-width: 500px; width: 100%; text-align: center;
+            position: relative; border: 1px solid var(--primary);
+        }
+        .price-display { background: #000; padding: 25px; border-radius: 8px; margin: 25px 0; border: 1px solid #222; }
+        .total-value { font-size: 3rem; font-weight: 900; color: var(--primary); }
+        
+        .bonus-list { text-align: left; margin-bottom: 25px; background: #1a1a1a; padding: 20px; border-radius: 8px; }
+        .bonus-item { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #bbb; }
+        .bonus-item i { color: var(--primary); margin-right: 8px; }
+
+        .btn-action { 
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%; background: var(--accent); color: white; 
+            padding: 18px; text-decoration: none; font-weight: 700; border-radius: 6px; 
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .btn-action:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
+
+        footer { background: #000; color: #444; padding: 40px 0; font-size: 0.8rem; border-top: 1px solid #111; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container flex">
+            <div class="logo">
+                <img src="logo.jpg" alt="MJ Utilidades"> 
+                <div>MJ <span>UTILIDADES</span></div>
+            </div>
+            <a href="https://wa.me/556392236545" target="_blank" class="btn-zap-header"><i class="fab fa-whatsapp"></i> CONTATO</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Simulador de <br> <span>Piso Vinílico</span></h1>
+            <p>Qualidade MJ Utilidades: Do material ao acabamento perfeito.</p>
+            
+            <div class="calculator-box">
+                <div class="form-group">
+                    <label>Metragem da Área (m²)</label>
+                    <input type="number" id="metragem" placeholder="Ex: 50" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>Modelo de Piso</label>
+                    <select id="modelo">
+                        <option value="74.90">Piso Vinílico 2mm (R$ 74,90/m²)</option>
+                        <option value="139.90">Piso Vinílico Clicado 5mm (R$ 139,90/m²)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="display:flex; align-items:center; gap:10px; padding: 15px; background: #222; border-radius: 6px;">
+                    <input type="checkbox" id="rodape" style="width:20px; height: 20px; accent-color: var(--primary);">
+                    <label for="rodape" style="margin:0; cursor:pointer;">Incluir Rodapé + Cola PU</label>
+                </div>
+
+                <button class="btn-calc" onclick="calcular()">Gerar Orçamento</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="modalResult">
+        <div class="modal-content">
+            <h3 style="color: var(--primary); text-transform: uppercase;">Investimento Estimado</h3>
+            
+            <div class="price-display">
+                <div style="font-size: 0.7rem; color: #666; text-transform: uppercase;">Total em Materiais</div>
+                <div class="total-value" id="valorFinal">R$ 0,00</div>
+            </div>
+
+            <div class="bonus-list">
+                <div class="bonus-item">
+                    <span><i class="fas fa-check"></i> Primer e Nivelante</span>
+                    <span>Sob consulta</span>
+                </div>
+                <div class="bonus-item" id="itemRodape">
+                    <span><i class="fas fa-check"></i> Rodapé e Cola PU</span>
+                    <span id="statusRodape">-</span>
+                </div>
+            </div>
+
+            <a href="#" id="linkZap" class="btn-action" target="_blank">
+                ENVIAR PARA WHATSAPP <i class="fab fa-whatsapp"></i>
+            </a>
+            
+            <button onclick="document.getElementById('modalResult').style.display='none'" style="background:none; border:none; color:#555; margin-top:20px; cursor:pointer;">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            const m2 = parseFloat(document.getElementById('metragem').value);
+            const precoPiso = parseFloat(document.getElementById('modelo').value);
+            const modeloNome = document.getElementById('modelo').options[document.getElementById('modelo').selectedIndex].text;
+            const temRodape = document.getElementById('rodape').checked;
+            
+            if (!m2 || m2 <= 0) {
+                alert("Por favor, informe a metragem.");
+                return;
+            }
+
+            let total = m2 * precoPiso;
+            let detalheRodape = "Não incluso";
+
+            if (temRodape) {
+                // Rodapé (29,90) + Cola PU (28,90) = 58,80
+                const custoRodape = m2 * 58.80; 
+                total += custoRodape;
+                detalheRodape = "Incluso (Rodapé + Cola)";
+                document.getElementById('statusRodape').innerText = "Adicionado";
+                document.getElementById('statusRodape').style.color = "var(--primary)";
+            } else {
+                document.getElementById('statusRodape').innerText = "Opcional";
+                document.getElementById('statusRodape').style.color = "#555";
+            }
+
+            const totalFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('valorFinal').innerText = totalFormatado;
+
+            const msg = `Olá MJ Utilidades! Fiz uma simulação no site:\n\n` +
+                        `📐 Metragem: ${m2}m²\n` +
+                        `🪵 Piso: ${modeloNome}\n` +
+                        `📏 Rodapé: ${detalheRodape}\n` +
+                        `💰 Valor Estimado: ${totalFormatado}\n\n` +
+                        `Gostaria de validar as quantidades de cola e autonivelante.`;
+
+            const link = `https://wa.me/556392236545?text=${encodeURIComponent(msg)}`;
+            document.getElementById('linkZap').href = link;
+            document.getElementById('modalResult').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
