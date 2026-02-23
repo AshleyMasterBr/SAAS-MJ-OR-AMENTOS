@@ -8,21 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* --- TEMA PREMIUM GOLD --- */
+        /* --- TEMA PREMIUM GOLD MJ --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; background-color: #0a0a0a; color: #f0f0f0; line-height: 1.6; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #0d0d0d; color: #f0f0f0; line-height: 1.6; }
         h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         
         :root {
-            --primary: #C5A059; /* Dourado MJ */
+            --primary: #C5A059; /* Dourado extraído do logo */
             --primary-dark: #a68545;
-            --bg-dark: #0a0a0a; 
-            --bg-card: #161616; 
+            --bg-dark: #0d0d0d; 
+            --bg-card: #1a1a1a; 
             --text-light: #ffffff;
             --accent: #25D366; 
         }
 
+        /* --- HEADER --- */
         header { background: #000; padding: 15px 0; border-bottom: 2px solid var(--primary); position: fixed; width: 100%; top: 0; z-index: 1000; }
         header .flex { display: flex; justify-content: space-between; align-items: center; }
         
@@ -38,19 +39,22 @@
             text-decoration: none; font-weight: 700; font-size: 0.9rem; 
             display: flex; align-items: center; gap: 6px; transition: 0.3s;
         }
-        .btn-zap-header:hover { background: #fff; transform: scale(1.05); }
+        .btn-zap-header:hover { background: #fff; transform: translateY(-2px); }
 
+        /* --- HERO --- */
         .hero { 
-            background: linear-gradient(to bottom, rgba(10,10,10,0.8), rgba(10,10,10,0.95)), url('https://images.unsplash.com/photo-1581850518616-0819c3a242c7?q=80&w=2070&auto=format&fit=crop'); 
+            background: linear-gradient(to bottom, rgba(13,13,13,0.8), rgba(13,13,13,0.95)), url('fundo.jpg'); 
             background-size: cover; background-position: center; 
             min-height: 100vh;
             display: flex; align-items: center; justify-content: center;
             text-align: center; color: white;
             padding: 120px 0 60px 0;
         }
+        .hero-content { max-width: 800px; width: 100%; }
         .hero h1 { font-size: 2.5rem; margin-bottom: 15px; text-transform: uppercase; line-height: 1.1; color: var(--primary); }
         .hero p { font-size: 1.1rem; margin-bottom: 35px; color: #aaa; }
 
+        /* --- CALCULADORA --- */
         .calculator-box {
             background: var(--bg-card); color: var(--text-light);
             padding: 35px; border-radius: 12px;
@@ -66,7 +70,7 @@
             font-size: 1rem; outline: none; transition: 0.3s; 
             background: #222; color: #fff; 
         }
-        .form-group input:focus { border-color: var(--primary); }
+        .form-group input:focus { border-color: var(--primary); background: #2a2a2a; }
         
         .btn-calc { 
             width: 100%; background: var(--primary); color: #000; 
@@ -74,7 +78,14 @@
             border-radius: 6px; cursor: pointer; transition: 0.3s; margin-top: 10px;
             letter-spacing: 1px;
         }
-        .btn-calc:hover { background: #fff; }
+        .btn-calc:hover { background: #fff; box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+
+        /* --- DIFERENCIAIS --- */
+        .features { padding: 80px 0; text-align: center; background: #000; border-top: 1px solid #1a1a1a; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-top: 50px; }
+        .feature-item i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
+        .feature-item h3 { margin-bottom: 15px; font-size: 1.2rem; color: #fff; text-transform: uppercase; }
+        .feature-item p { font-size: 0.95rem; color: #777; }
 
         /* --- MODAL --- */
         .modal-overlay {
@@ -87,11 +98,14 @@
             background: var(--bg-card); padding: 40px; border-radius: 12px;
             max-width: 500px; width: 100%; text-align: center;
             position: relative; border: 1px solid var(--primary);
+            animation: slideUp 0.4s ease;
         }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
         .price-display { background: #000; padding: 25px; border-radius: 8px; margin: 25px 0; border: 1px solid #222; }
         .total-value { font-size: 3rem; font-weight: 900; color: var(--primary); }
         
-        .bonus-list { text-align: left; margin-bottom: 25px; background: #1a1a1a; padding: 20px; border-radius: 8px; }
+        .bonus-list { text-align: left; margin-bottom: 25px; background: #1a1a1a; padding: 20px; border-radius: 8px; border: 1px dashed #444; }
         .bonus-item { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.95rem; color: #bbb; }
         .bonus-item i { color: var(--primary); margin-right: 8px; }
 
@@ -101,9 +115,12 @@
             padding: 18px; text-decoration: none; font-weight: 700; border-radius: 6px; 
             font-size: 1.1rem; transition: 0.3s;
         }
-        .btn-action:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); }
 
-        footer { background: #000; color: #444; padding: 40px 0; font-size: 0.8rem; border-top: 1px solid #111; text-align: center; }
+        /* --- FOOTER --- */
+        footer { background: #000; color: #444; padding: 40px 0; font-size: 0.8rem; border-top: 1px solid #111; }
+        .footer-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 700; text-transform: uppercase; }
+        .footer-brand img { height: 35px; width: auto; }
     </style>
 </head>
 <body>
@@ -111,17 +128,17 @@
     <header>
         <div class="container flex">
             <div class="logo">
-                <img src="logo.jpg" alt="MJ Utilidades"> 
+                <img src="logo.png" alt="MJ Utilidades"> 
                 <div>MJ <span>UTILIDADES</span></div>
             </div>
-            <a href="https://wa.me/556392236545" target="_blank" class="btn-zap-header"><i class="fab fa-whatsapp"></i> CONTATO</a>
+            <a href="https://wa.me/556392236545" target="_blank" class="btn-zap-header"><i class="fab fa-whatsapp"></i> ATENDIMENTO</a>
         </div>
     </header>
 
     <section class="hero">
-        <div class="container">
-            <h1>Simulador de <br> <span>Piso Vinílico</span></h1>
-            <p>Qualidade MJ Utilidades: Do material ao acabamento perfeito.</p>
+        <div class="container hero-content">
+            <h1>Simulador de <br> <span>Pisos MJ</span></h1>
+            <p>Descubra o valor do seu projeto com o padrão de excelência MJ Utilidades.</p>
             
             <div class="calculator-box">
                 <div class="form-group">
@@ -132,88 +149,112 @@
                 <div class="form-group">
                     <label>Modelo de Piso</label>
                     <select id="modelo">
-                        <option value="74.90">Piso Vinílico 2mm (R$ 74,90/m²)</option>
-                        <option value="139.90">Piso Vinílico Clicado 5mm (R$ 139,90/m²)</option>
+                        <option value="74.90">Vinílico 2mm (R$ 74,90/m²)</option>
+                        <option value="139.90">Vinílico Clicado 5mm (R$ 139,90/m²)</option>
                     </select>
                 </div>
 
-                <div class="form-group" style="display:flex; align-items:center; gap:10px; padding: 15px; background: #222; border-radius: 6px;">
-                    <input type="checkbox" id="rodape" style="width:20px; height: 20px; accent-color: var(--primary);">
-                    <label for="rodape" style="margin:0; cursor:pointer;">Incluir Rodapé + Cola PU</label>
+                <div class="form-group" style="display:flex; align-items:center; gap:10px; padding: 15px; background: #222; border-radius: 6px; border: 1px solid #333;">
+                    <input type="checkbox" id="rodape" style="width:22px; height: 22px; accent-color: var(--primary);">
+                    <label for="rodape" style="margin:0; cursor:pointer; color: #fff;">Incluir Rodapé + Cola PU</label>
                 </div>
 
-                <button class="btn-calc" onclick="calcular()">Gerar Orçamento</button>
+                <button class="btn-calc" onclick="calcular()">CALCULAR INVESTIMENTO</button>
             </div>
         </div>
     </section>
 
+    <section class="features">
+        <div class="container">
+            <h2>Diferenciais <span style="color:var(--primary)">MJ UTILIDADES</span></h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-gem"></i>
+                    <h3>Acabamento Premium</h3>
+                    <p>Materiais selecionados para garantir durabilidade e sofisticação.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-truck-fast"></i>
+                    <h3>Entrega Ágil</h3>
+                    <p>Logística eficiente para que sua obra não pare por falta de material.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-star"></i>
+                    <h3>Qualidade Garantida</h3>
+                    <p>Sua satisfação é nossa prioridade em cada metro quadrado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-row">
+            <div class="footer-brand">
+                <img src="logo.png" alt="MJ Utilidades">
+                <div>MJ UTILIDADES</div>
+            </div>
+            <div style="text-align: right;">
+                &copy; 2026 MJ Utilidades. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
     <div class="modal-overlay" id="modalResult">
         <div class="modal-content">
-            <h3 style="color: var(--primary); text-transform: uppercase;">Investimento Estimado</h3>
-            
+            <h3 style="color: var(--primary);">ORÇAMENTO ESTIMADO</h3>
             <div class="price-display">
-                <div style="font-size: 0.7rem; color: #666; text-transform: uppercase;">Total em Materiais</div>
+                <div style="font-size: 0.75rem; color: #666; text-transform: uppercase; margin-bottom: 5px;">Investimento em Material</div>
                 <div class="total-value" id="valorFinal">R$ 0,00</div>
             </div>
-
             <div class="bonus-list">
-                <div class="bonus-item">
-                    <span><i class="fas fa-check"></i> Primer e Nivelante</span>
-                    <span>Sob consulta</span>
-                </div>
-                <div class="bonus-item" id="itemRodape">
-                    <span><i class="fas fa-check"></i> Rodapé e Cola PU</span>
-                    <span id="statusRodape">-</span>
-                </div>
+                <div class="bonus-item"><span><i class="fas fa-check"></i> Piso Selecionado</span><span id="pisoNome"></span></div>
+                <div class="bonus-item" id="itemRodape"><span><i class="fas fa-check"></i> Rodapé + Cola PU</span><span id="statusRodape">-</span></div>
+                <div class="bonus-item"><span><i class="fas fa-info-circle"></i> Colas e Nivelante</span><span>Sob consulta</span></div>
             </div>
-
-            <a href="#" id="linkZap" class="btn-action" target="_blank">
-                ENVIAR PARA WHATSAPP <i class="fab fa-whatsapp"></i>
-            </a>
-            
-            <button onclick="document.getElementById('modalResult').style.display='none'" style="background:none; border:none; color:#555; margin-top:20px; cursor:pointer;">Fechar</button>
+            <a href="#" id="linkZap" class="btn-action" target="_blank">CONFIRMAR VIA WHATSAPP <i class="fab fa-whatsapp"></i></a>
+            <button onclick="document.getElementById('modalResult').style.display='none'" style="background:none; border:none; color:#555; margin-top:20px; cursor:pointer; font-weight:700;">FECHAR</button>
         </div>
     </div>
 
     <script>
         function calcular() {
             const m2 = parseFloat(document.getElementById('metragem').value);
-            const precoPiso = parseFloat(document.getElementById('modelo').value);
-            const modeloNome = document.getElementById('modelo').options[document.getElementById('modelo').selectedIndex].text;
+            const selectPiso = document.getElementById('modelo');
+            const precoPiso = parseFloat(selectPiso.value);
+            const modeloTexto = selectPiso.options[selectPiso.selectedIndex].text.split('(')[0];
             const temRodape = document.getElementById('rodape').checked;
             
             if (!m2 || m2 <= 0) {
-                alert("Por favor, informe a metragem.");
+                alert("Por favor, informe a metragem da área.");
                 return;
             }
 
             let total = m2 * precoPiso;
-            let detalheRodape = "Não incluso";
+            let infoRodape = "Não incluso";
 
             if (temRodape) {
-                // Rodapé (29,90) + Cola PU (28,90) = 58,80
-                const custoRodape = m2 * 58.80; 
-                total += custoRodape;
-                detalheRodape = "Incluso (Rodapé + Cola)";
-                document.getElementById('statusRodape').innerText = "Adicionado";
+                // Rodapé (29,90) + Cola PU (28,90) = 58,80 por metro
+                total += (m2 * 58.80); 
+                infoRodape = "Incluso (Rodapé + Cola PU)";
+                document.getElementById('statusRodape').innerText = "ADICIONADO";
                 document.getElementById('statusRodape').style.color = "var(--primary)";
             } else {
-                document.getElementById('statusRodape').innerText = "Opcional";
+                document.getElementById('statusRodape').innerText = "OPCIONAL";
                 document.getElementById('statusRodape').style.color = "#555";
             }
 
             const totalFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             document.getElementById('valorFinal').innerText = totalFormatado;
+            document.getElementById('pisoNome').innerText = modeloTexto;
 
-            const msg = `Olá MJ Utilidades! Fiz uma simulação no site:\n\n` +
-                        `📐 Metragem: ${m2}m²\n` +
-                        `🪵 Piso: ${modeloNome}\n` +
-                        `📏 Rodapé: ${detalheRodape}\n` +
+            const msg = `Olá MJ Utilidades! Gostaria de um orçamento:\n\n` +
+                        `📐 Área: ${m2}m²\n` +
+                        `🪵 Piso: ${modeloTexto}\n` +
+                        `📏 Rodapé/Cola PU: ${infoRodape}\n` +
                         `💰 Valor Estimado: ${totalFormatado}\n\n` +
-                        `Gostaria de validar as quantidades de cola e autonivelante.`;
+                        `Pode me passar os valores de Cola de Piso e Nivelante para essa área?`;
 
-            const link = `https://wa.me/556392236545?text=${encodeURIComponent(msg)}`;
-            document.getElementById('linkZap').href = link;
+            document.getElementById('linkZap').href = `https://wa.me/556392236545?text=${encodeURIComponent(msg)}`;
             document.getElementById('modalResult').style.display = 'flex';
         }
     </script>
